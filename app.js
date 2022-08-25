@@ -18,6 +18,7 @@ const userRoutes = require('./routes/users');
 const techrepairsRoutes = require('./routes/techrepairs');
 const reviewsRoutes = require('./routes/reviews');
 const MongoDBStore = require('connect-mongo');
+const crypto = require('crypto')
 
 // const db_Url = process.env.DB_URL;
 const db_Url = process.env.DB_URL || 'mongodb://localhost:27017/tech-repair';
@@ -43,6 +44,9 @@ app.use(express.urlencoded({ extended: true })); // encoded req.body
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
+
+const SECRET = crypto.randomBytes(48).toString('hex');
+console.log(token);
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret';
 
