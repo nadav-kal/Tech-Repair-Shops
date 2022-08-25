@@ -13,13 +13,16 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-
+const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users');
 const techrepairsRoutes = require('./routes/techrepairs');
 const reviewsRoutes = require('./routes/reviews');
+const MongoDBStore = require('connect-mongo');
 
+// const db_Url = process.env.DB_URL;
+const db_Url = process.env.DB_URL || 'mongodb://localhost:27017/tech-repair';
 
-mongoose.connect('mongodb://localhost:27017/tech-repair', {
+mongoose.connect(db_Url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -39,13 +42,29 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true })); // encoded req.body
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize());
+
+const secret = process.env.SECRET || 'thisshouldbeabettersecret';
+
+const store = MongoDBStore.create({
+    mongoUrl: db_Url,
+    secret,
+    touchAfter: 24 * 60 * 60,
+});
+
+store.on('error', function (e) {
+    console.log("SESSION STORE ERROR", e);
+})
 
 const sessionConfig = {
-    secret: 'thisshouldbeabettersecret',
+    store,
+    name: 'session',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -64,7 +83,6 @@ app.use((req, res, next) => {
     if(!['/login', '/'].includes(req.originalUrl)) {
         req.session.returnTo = req.originalUrl;
     }
-
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -78,6 +96,7 @@ app.get('/fakeUser', async(req, res) => {
 app.use('/', userRoutes);
 app.use('/techrepairs', techrepairsRoutes);
 app.use('/techrepairs/:id/reviews', reviewsRoutes);
+
 
 app.get('/', (req, res) => {
     res.render('home');
