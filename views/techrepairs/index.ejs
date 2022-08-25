@@ -1,0 +1,26 @@
+
+<% layout('layouts/boilerplate') %>    
+<h1>All Tech Repair Shops</h1>
+    <% for(let shop of techrepairs) {%>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="<%= shop.images[0].url %> " alt="" class="img-fluid">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h5 class="card-title"><%= shop.title %> </h5>
+                            <p class="card-text"><%= shop.description %> </p>
+                            <p class="card-text">
+                                <small class="card-text"> <%= shop.location %> </small>
+                            </p>
+                            <a href="/techrepairs/<%= shop._id %> " class="btn btn-primary">View <%= shop.title %> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }%>  
+
+<a href="/techrepairs/new">Add New Shop</a>

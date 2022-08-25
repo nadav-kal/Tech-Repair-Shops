@@ -1,0 +1,64 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <h1 class="mb-4 text-center">Add New Shop</h1>
+        <div class="col-6 offset-3">
+            <form action="/techrepairs" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="techrepair[title]" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" name="techrepair[location]" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <!-- <input type="file" name="image" id="" multiple> -->
+                <!-- <div class="mb-4">
+                    <label for="image" class="form-label">Image URL</label>
+                    <input type="text" class="form-control" id="image" name="techrepair[image]" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div> -->
+                <div class="mb-4">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="description" name="techrepair[description]" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="price" class="form-label">Price</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="price-label">$</span>
+                        <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
+                        aria-describedby="price-label" name="techrepair[price]" required>
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phone" name="techrepair[phone]" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="image" class="form-label">Images</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <button class="btn btn-success mb-3">Add Tech Repair Shop</button>
+            </form>
+            <a href="/techrepairs" class="link-primary">All Shops</a>
+        </div>
+    </div>
