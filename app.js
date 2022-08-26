@@ -45,8 +45,6 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
-const SECRET = crypto.randomBytes(48).toString('hex');
-console.log(token);
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret';
 

@@ -14,7 +14,7 @@ ImageSchema.virtual('thumbnail').get(function() {
 const TechrepairSchema = new Schema ({
     title: String,
     images: [ImageSchema],
-    price: Number,
+    // price: Number,
     description: String, 
     location: String, 
     phone: Number,
