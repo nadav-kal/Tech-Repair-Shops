@@ -18,10 +18,11 @@ const userRoutes = require('./routes/users');
 const techrepairsRoutes = require('./routes/techrepairs');
 const reviewsRoutes = require('./routes/reviews');
 const MongoDBStore = require('connect-mongo');
-const crypto = require('crypto')
 
-// const db_Url = process.env.DB_URL;
-const db_Url = process.env.DB_URL || 'mongodb://localhost:27017/tech-repair';
+let db_Url = process.env.DB_URL;
+if(process.env.NODE_ENV !== 'production') {
+    db_Url = 'mongodb://localhost:27017/tech-repair';
+}
 
 mongoose.connect(db_Url, {
     useNewUrlParser: true,
@@ -89,10 +90,6 @@ app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
-})
-
-app.get('/fakeUser', async(req, res) => {
-
 })
 
 app.use('/', userRoutes);

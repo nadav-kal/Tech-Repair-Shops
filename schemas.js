@@ -6,7 +6,6 @@ module.exports.techrepairSchema = Joi.object({
         location: Joi.string().required(),
         // image: Joi.string().required(),
         description: Joi.string().required(),
-        // price: Joi.number().required().min(0),
         phone: Joi.number().required()
     }).required(),
     deleteImages: Joi.array()
